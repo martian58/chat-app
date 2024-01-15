@@ -2,25 +2,29 @@
 <html>
 <head>
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
 <style>
 body {
+  background-color: #009579;
   margin: 0 auto;
   max-width: 800px;
   padding: 0 20px;
 }
 
 .container {
-  border: 2px solid #dedede;
-  background-color: #f1f1f1;
+  border: 2px solid #009579;
+  background-color: #0cb795;
   border-radius: 5px;
   padding: 10px;
   margin: 10px 0;
 }
 
 .darker {
-  border-color: #ccc;
-  background-color: #ddd;
+  border-color: #31cebc;
+  background-color: #f5f5dc;
+  color: rgb(13, 2, 2);
 }
+
 
 .container::after {
   content: "";
@@ -51,12 +55,21 @@ body {
   float: left;
   color: #999;
 }
+#display {
+  background-color: #0cb795; /* Light gray background */
+  color: #333; /* Dark gray text color for contrast */
+}
+
 </style>
 <script   src="https://code.jquery.com/jquery-3.1.1.min.js"   integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8="   crossorigin="anonymous"></script>
 </head>
 <body>
+<h2 style="color: white; text-align: center; margin-top: 12px;">{{room}} - ChatLong</h2>
+<br>
+<a href="https://fuad1234.pythonanywhere.com", target="_blank"><button class="btn btn-secondary" type="button">Go to Video Call</button></a>
+<br>
 
-<h2>{{room}} - Room</h2>
+<button id="scrollBtn" class="btn btn-secondary" onclick="scrollToBottom()">Scroll Down</button>
 
 <div id="display">
 
@@ -99,7 +112,7 @@ setInterval(function(){
     padding: 12px 20px;
     margin: 8px 0;
     display: inline-block;
-    border: 1px solid #ccc;
+    border: 1px solid #4CAF50;
     border-radius: 4px;
     box-sizing: border-box;
     }
@@ -124,7 +137,28 @@ setInterval(function(){
     background-color: #f2f2f2;
     padding: 20px;
     }
+        /* Style for the button */
+      #scrollBtn {
+          display: none;
+          position: fixed;
+          top: 20px; /* Adjust the top value to change the distance from the top */
+          right: 20px;
+          background-color: #056b58;
+          color: #fff;
+          border: none;
+          padding: 10px 20px;
+          cursor: pointer;
+          border-radius: 5px;
+      }
+       /* Style for the down arrow icon */
+      #scrollBtn::after {
+          content: '\2193'; /* Unicode arrow down character */
+          font-size: 20px;
+          margin-left: 5px;
+        }
     </style>
+    <a href="https://fuad1234.pythonanywhere.com", target="_blank"><button class="btn btn-secondary" type="button">Video Call</button></a>
+    <a href="{% url 'home' %}" ><button class="btn btn-secondary" type="button">Home</button></a>
 
     <form id="post-form">
         {% csrf_token %}
@@ -135,7 +169,7 @@ setInterval(function(){
     </form>
 </div>
 
-
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
 </body>
 
 <script type="text/javascript">
@@ -157,6 +191,22 @@ setInterval(function(){
     });
     document.getElementById('message').value = ''
   });
+// JavaScript function to scroll the page to the bottom
+function scrollToBottom() {
+    window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth',duration: 50 });
+}
+
+// Show/hide the scroll button based on scroll position
+window.onscroll = function () {
+    var scrollBtn = document.getElementById("scrollBtn");
+    var scrolledToBottom = (window.innerHeight + window.scrollY) >= document.body.offsetHeight;
+
+    if (scrolledToBottom) {
+        scrollBtn.style.display = "none";
+    } else {
+        scrollBtn.style.display = "block";
+    }
+};
 </script>
 
 </html>
